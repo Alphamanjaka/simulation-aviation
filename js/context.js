@@ -21,3 +21,4 @@ export const restartButton = document.getElementById("restartButton");
 export const thrustLevelElem = document.getElementById("thrustLevel");
 export const flapsValueElem = document.getElementById("flapsValue");
 export const gearValueElem = document.getElementById("gearValue");
+export const fuelLevelElem = document.getElementById("fuelLevel");

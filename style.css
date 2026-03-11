@@ -176,6 +176,26 @@ body {
     transition: height 0.1s linear;
 }
 
+.fuel-gauge {
+    width: 20px;
+    height: 60px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.fuel-level {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f1c40f; /* Jaune pour le carburant */
+    transition: height 0.1s linear;
+}
+
 /* Styles spécifiques pour l'indicateur d'attitude */
 .attitude-indicator {
     width: 80px;

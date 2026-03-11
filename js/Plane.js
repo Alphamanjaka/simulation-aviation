@@ -20,6 +20,8 @@ import {
   FLAPS_LIFT,
   FLAPS_DRAG,
   GEAR_DRAG,
+  INITIAL_FUEL,
+  FUEL_CONSUMPTION_RATE,
   GROUND_LEVEL,
   RUNWAY_START_X,
   RUNWAY_END_X,
@@ -41,6 +43,7 @@ export class Plane {
     this.thrust = 0;
     this.flaps = 0; // 0 = rétractés
     this.gearDown = true;
+    this.fuel = INITIAL_FUEL;
     this.landed = false;
     this.crashed = false;
     this.justLanded = false;
@@ -57,6 +60,7 @@ export class Plane {
     this.thrust = 0.55; // Poussée nécessaire pour maintenir la vitesse d'approche avec la traînée
     this.flaps = 1; // Volets sortis au niveau 1 pour l'approche
     this.gearDown = true;
+    this.fuel = INITIAL_FUEL;
     this.landed = false;
     this.crashed = false;
 
@@ -84,6 +88,10 @@ export class Plane {
 
   // Applique une poussée progressive pour éviter les changements brusques de vitesse.
   applyThrust(direction) {
+    if (this.fuel <= 0) {
+      this.thrust = 0;
+      return;
+    }
     if (direction === "increase") {
       this.thrust = Math.min(1.0, this.thrust + THRUST_CHANGE_RATE);
     } else if (direction === "decrease") {
@@ -107,6 +115,15 @@ export class Plane {
     this.justCrashed = false;
 
     if (this.crashed) return;
+
+    // Gestion du carburant
+    if (this.fuel > 0) {
+      this.fuel -= this.thrust * FUEL_CONSUMPTION_RATE;
+      if (this.fuel <= 0) {
+        this.fuel = 0;
+        this.thrust = 0; // Panne sèche !
+      }
+    }
 
     if (this.landed) {
       // Si l'avion a atterri, appliquer les freins jusqu'à l'arrêt.

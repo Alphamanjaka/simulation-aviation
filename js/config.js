@@ -40,3 +40,5 @@ export const BRAKING_FORCE = 0.01; // Freinage efficace au sol
 export const FLAPS_LIFT = 0.004; // Portance ajoutée par niveau de volet
 export const FLAPS_DRAG = 0.001; // Traînée ajoutée par niveau de volet (réduit)
 export const GEAR_DRAG = 0.002; // Traînée ajoutée par le train d'atterrissage sorti (réduit)
+export const INITIAL_FUEL = 100; // Quantité de carburant au départ
+export const FUEL_CONSUMPTION_RATE = 0.05; // Consommation par frame à pleine puissance

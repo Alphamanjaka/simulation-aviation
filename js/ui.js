@@ -16,8 +16,9 @@ import {
   thrustLevelElem,
   flapsValueElem,
   gearValueElem,
+  fuelLevelElem,
 } from "./context.js";
-import { GROUND_LEVEL } from "./config.js";
+import { GROUND_LEVEL, INITIAL_FUEL } from "./config.js";
 
 export function showGameMessage(message) {
   gameMessageElem.textContent = message;
@@ -73,6 +74,11 @@ export function updateInstruments(plane) {
       gearValueElem.style.color = "#E74C3C"; // Red
     }
   }
+
+  // Update fuel gauge
+  if (fuelLevelElem) {
+    fuelLevelElem.style.height = `${(plane.fuel / INITIAL_FUEL) * 100}%`;
+  }
 }
 
 export function resetUI() {
@@ -82,5 +88,8 @@ export function resetUI() {
   horizonElem.style.transform = `translateY(0%)`;
   if (thrustLevelElem) {
     thrustLevelElem.style.height = "0%";
+  }
+  if (fuelLevelElem) {
+    fuelLevelElem.style.height = "100%";
   }
 }
