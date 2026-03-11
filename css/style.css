@@ -1,0 +1,147 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    overflow: hidden;
+    /* Empêche le défilement */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2c3e50;
+    /* Couleur de fond sombre */
+    color: #ecf0f1;
+    /* Texte clair */
+    height: 100vh;
+}
+
+.game-container {
+    width: 90%;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
+    /* Ratio standard pour la zone de jeu */
+    background-color: #34495e;
+    /* Couleur de fond de la zone de jeu */
+    border: 2px solid #ecf0f1;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    /* Assure que le canvas prend toute la place */
+}
+
+.instrument-panel {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 1000px;
+    background-color: #34495e;
+    padding: 15px;
+    border: 2px solid #ecf0f1;
+    border-top: none;
+    margin-bottom: 10px;
+}
+
+.instrument {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    padding: 5px;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px;
+    width: 150px;
+    /* Largeur fixe pour les instruments */
+}
+
+.instrument .label {
+    font-size: 0.8em;
+    color: #bdc3c7;
+    margin-bottom: 5px;
+}
+
+.instrument .value {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #e67e22;
+    /* Couleur orange pour les valeurs */
+}
+
+.instrument .arrow {
+    font-size: 0.9em;
+    color: #e67e22;
+    margin-top: 3px;
+}
+
+/* Styles spécifiques pour l'indicateur d'attitude */
+.attitude-indicator {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #bdc3c7;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background-color: #5d6d7e;
+    /* Ciel */
+}
+
+.horizon {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background-color: #aeb6bf;
+    /* Terre */
+    bottom: 0;
+    transform: translateY(0%);
+    /* Position initiale */
+}
+
+.plane-symbol {
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background-color: #e74c3c;
+    /* Symbole de l'avion rouge */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    /* Pour être au-dessus de l'horizon */
+}
+
+
+.controls-panel {
+    background-color: #34495e;
+    padding: 10px 20px;
+    border: 2px solid #ecf0f1;
+    border-top: none;
+    text-align: center;
+    font-size: 0.9em;
+    width: 90%;
+    max-width: 1000px;
+}
+
+.controls-panel p {
+    margin: 5px 0;
+}
+
+#restartButton {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#restartButton:hover {
+    background-color: #d35400;
+    /* Assombrir au survol */
+}

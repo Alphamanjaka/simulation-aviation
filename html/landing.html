@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Sim Pro - Atterrissage</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div class="controls-panel">
+        <p>Contrôles :</p>
+        <p>Flèche Haut/Bas : Pitch (montée/descente)</p>
+        <p>Flèche Gauche/Droite : Poussée (vitesse)</p>
+        <button id="menuButton">MENU</button>
+        <button id="restartButton">REDÉMARRER</button>
+    </div>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameMessage" class="game-message"></div>
+    </div>
+
+    <div class="instrument-panel">
+        <div class="instrument">
+            <span class="label">ALTITUDE</span>
+            <span id="altitudeValue" class="value">0 ft</span>
+            <span id="altitudeArrow" class="arrow">⬆</span>
+        </div>
+        <div class="instrument">
+            <span class="label">VITESSE</span>
+            <span id="speedValue" class="value">0 kts</span>
+        </div>
+        <div class="instrument">
+            <span class="label">V. VERTICALE</span>
+            <span id="vSpeedValue" class="value">0 ft/min</span>
+            <span id="vSpeedArrow" class="arrow">⬆</span>
+        </div>
+        <div class="instrument">
+            <span class="label">ATTITUDE</span>
+            <div id="attitudeIndicator" class="attitude-indicator">
+                <div class="horizon"></div>
+                <div class="plane-symbol">
+                    <div class="plane-symbol-dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Le script principal du jeu, utilisant les modules ES6 pour importer les autres fichiers. -->
+    <script type="module" src="../js/landing-main.js"></script>
+</body>
+
+</html>

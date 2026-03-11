@@ -1,0 +1,250 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Police moderne */
+    margin: 0;
+    overflow: hidden;
+    /* Empêche le défilement */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Centre le contenu verticalement pour une meilleure concentration */
+    background-color: #1e1e1e;
+    /* Fond très sombre, type IDE */
+    color: #f0f0f0;
+    /* Texte clair */
+    height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ecf0f1;
+}
+
+#main-menu h1 {
+    font-weight: 300;
+    font-size: 2.5em;
+    border-bottom: 1px solid #e67e22;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+}
+
+.menu-cards {
+    display: flex;
+    gap: 30px;
+}
+
+.menu-card {
+    background-color: #2c3e50;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 20px 30px;
+    width: 250px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    border-color: #e67e22;
+}
+
+.game-container {
+    width: 90%;
+    /* Prend plus de largeur */
+    max-width: 1600px;
+    /* Augmenté pour les grands écrans */
+    aspect-ratio: 16 / 9;
+    /* Ratio standard */
+    background-color: #000;
+    /* Fond noir pour le canvas */
+    border: 1px solid #444;
+    /* Bordure subtile */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    /* Ombre pour la profondeur */
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    /* Enlève l'espace sous le canvas */
+}
+
+.game-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3em;
+    font-weight: bold;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+    display: none;
+    /* Caché par défaut */
+    pointer-events: none;
+    /* N'intercepte pas les clics */
+    text-align: center;
+}
+
+.instrument-panel {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 1600px;
+    background-color: #252526;
+    /* Couleur de panneau sombre */
+    padding: 10px;
+    border: 1px solid #444;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    /* Coins inférieurs arrondis */
+    margin-top: 5px;
+    /* Espace réduit */
+}
+
+.instrument {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    background-color: #1e1e1e;
+    /* Fond d'instrument encore plus sombre */
+    border: 1px solid #444;
+    border-radius: 8px;
+    width: 120px;
+    /* Largeur fixe pour l'alignement */
+    text-align: center;
+}
+
+.instrument .label {
+    font-size: 0.7em;
+    color: #a0a0a0;
+    /* Label grisé */
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Majuscules pour un look pro */
+    letter-spacing: 1px;
+}
+
+.instrument .value {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #4ec9b0;
+    /* Couleur "cyan" moderne pour les valeurs */
+    font-family: 'Consolas', 'Courier New', monospace;
+    /* Police à chasse fixe */
+}
+
+.instrument .arrow {
+    font-size: 1em;
+    color: #4ec9b0;
+    margin-top: 5px;
+    transition: transform 0.2s ease-in-out;
+    /* Transition douce pour la rotation */
+}
+
+/* Styles spécifiques pour l'indicateur d'attitude */
+.attitude-indicator {
+    width: 80px;
+    /* Plus grand pour une meilleure lisibilité */
+    height: 80px;
+    border: 2px solid #666;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(to bottom, #3498db 0%, #5dade2 50%, #85c1e9 100%);
+    /* Ciel en dégradé */
+    margin-top: 5px;
+}
+
+.horizon {
+    position: absolute;
+    width: 150%;
+    /* Plus large pour permettre une rotation de roulis future */
+    left: -25%;
+    height: 50%;
+    background: linear-gradient(to bottom, #8c583a 0%, #6d452d 100%);
+    /* Sol en dégradé */
+    bottom: 0;
+    transform: translateY(0%);
+    /* Position initiale */
+    transition: transform 0.1s linear;
+    /* Mouvement de l'horizon plus fluide */
+}
+
+.plane-symbol {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    /* Au-dessus de l'horizon */
+    width: 60px;
+    /* Largeur du symbole complet */
+    height: 20px;
+    /* Hauteur pour le positionnement */
+}
+
+
+.controls-panel {
+    /* Panneau de contrôle plus discret */
+    background-color: transparent;
+    padding: 5px;
+    text-align: center;
+    font-size: 0.7em;
+    color: #777;
+    width: 90%;
+    max-width: 1600px;
+    margin-top: 5px;
+}
+
+.controls-panel p {
+    margin: 2px 0;
+}
+
+#restartButton {
+    /* Bouton plus discret, mais clair */
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.8em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 8px;
+    transition: background-color 0.2s ease;
+}
+
+#restartButton:hover {
+    background-color: #d35400;
+}
+
+#menuButton {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.8em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 8px;
+    margin-right: 10px;
+    transition: background-color 0.2s ease;
+}
+
+#menuButton:hover {
+    background-color: #95a5a6;
+}
