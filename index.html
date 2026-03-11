@@ -11,6 +11,34 @@
 <body>
     <div id="main-menu">
         <h1>Choisissez votre simulation</h1>
+        
+        <div class="settings-panel">
+            <div class="setting-group">
+                <label for="aircraft-select">Avion :</label>
+                <select id="aircraft-select">
+                    <option value="cessna">Cessna 172 (Léger)</option>
+                    <option value="jet">F-18 Hornet (Rapide)</option>
+                    <option value="jumbo">Airbus A380 (Lourd)</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label for="runway-select">Piste :</label>
+                <select id="runway-select">
+                    <option value="standard">Standard</option>
+                    <option value="short">Courte (Difficile)</option>
+                    <option value="long">Longue (Facile)</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label for="weather-select">Météo :</label>
+                <select id="weather-select">
+                    <option value="clear">Ciel Dégagé</option>
+                    <option value="windy">Vent de Face</option>
+                    <option value="storm">Orage (Turbulences)</option>
+                </select>
+            </div>
+        </div>
+
         <div class="menu-cards">
             <div class="menu-card" id="start-takeoff">
                 <h2>Décollage</h2>

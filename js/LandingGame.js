@@ -39,7 +39,7 @@ export class LandingGame extends Game {
       // --- Logique du pilote automatique ---
       // Maintient une descente contrôlée et stable.
       // Modifiez cette valeur pour ajuster la pente de descente (ex: 0.1 pour descendre moins vite)
-      const targetVerticalSpeed = 0.5;
+      const targetVerticalSpeed = 0.1;
       const correctionFactor = 0.005; // Force de la correction pour le pitch.
 
       // Si on descend trop vite, on cabre (pitch < 0) pour augmenter la portance.

@@ -16,6 +16,7 @@ import {
   updateBackground,
   drawBackground,
 } from "./background.js";
+import { initRain, updateRain, drawRain } from "./rain.js";
 import { audioManager } from "./audio.js";
 import * as ui from "./ui.js";
 
@@ -37,6 +38,7 @@ export class Game {
 
     audioManager.init();
     initBackground();
+    initRain(400); // 400 gouttes pour une bonne averse
   }
 
   // Méthode à surcharger par les enfants
@@ -51,6 +53,7 @@ export class Game {
     updatePlane(this.plane);
     audioManager.updateEngine(this.plane.thrust);
     updateBackground(this.plane.velX);
+    updateRain(this.plane.velX);
 
     this.checkGameRules();
 
@@ -106,6 +109,7 @@ export class Game {
     drawBackground(this.cameraX);
     drawRunway(this.cameraX);
     drawPlane(this.plane, GAME_WIDTH * 0.25, this.plane.y);
+    drawRain(); // La pluie est dessinée par-dessus tout le reste
 
     // 3. Mettre à jour l'interface utilisateur
     ui.updateInstruments(this.plane);
