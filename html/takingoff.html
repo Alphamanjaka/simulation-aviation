@@ -9,6 +9,15 @@
 </head>
 
 <body>
+    <div class="controls-panel">
+        <p>Contrôles :</p>
+        <p>Flèche Haut/Bas : Pitch (montée/descente)</p>
+        <p>Flèche Gauche/Droite : Poussée (vitesse)</p>
+        <p>Touche F : Sortir/Rentrer les volets</p>
+        <p>Touche G : Train d'atterrissage</p>
+        <button id="menuButton">MENU</button>
+        <button id="restartButton">REDÉMARRER</button>
+    </div>
     <div class="game-container">
         <canvas id="gameCanvas"></canvas>
         <div id="gameMessage" class="game-message"></div>
@@ -23,6 +32,20 @@
         <div class="instrument">
             <span class="label">VITESSE</span>
             <span id="speedValue" class="value">0 kts</span>
+        </div>
+        <div class="instrument">
+            <span class="label">POUSSÉE</span>
+            <div class="thrust-gauge">
+                <div id="thrustLevel" class="thrust-level"></div>
+            </div>
+        </div>
+        <div class="instrument">
+            <span class="label">VOLETS</span>
+            <span id="flapsValue" class="value">0°</span>
+        </div>
+        <div class="instrument">
+            <span class="label">TRAIN</span>
+            <span id="gearValue" class="value">SORTI</span>
         </div>
         <div class="instrument">
             <span class="label">V. VERTICALE</span>
@@ -40,13 +63,6 @@
         </div>
     </div>
 
-    <div class="controls-panel">
-        <p>Contrôles :</p>
-        <p>Flèche Haut/Bas : Pitch (montée/descente)</p>
-        <p>Flèche Gauche/Droite : Poussée (vitesse)</p>
-        <button id="menuButton">MENU</button>
-        <button id="restartButton">REDÉMARRER</button>
-    </div>
 
     <!-- Le script principal du jeu, utilisant les modules ES6 pour importer les autres fichiers. -->
     <script type="module" src="../js/takeoff-main.js"></script>

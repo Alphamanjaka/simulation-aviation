@@ -17,6 +17,9 @@ import {
   MAX_SPEED,
   LIFT_FACTOR,
   PITCH_LIFT_FACTOR,
+  FLAPS_LIFT,
+  FLAPS_DRAG,
+  GEAR_DRAG,
   GROUND_LEVEL,
   RUNWAY_START_X,
   RUNWAY_END_X,
@@ -36,6 +39,8 @@ export class Plane {
     this.velY = 0;
     this.pitch = 0;
     this.thrust = 0;
+    this.flaps = 0; // 0 = rétractés
+    this.gearDown = true;
     this.landed = false;
     this.crashed = false;
     this.justLanded = false;
@@ -49,7 +54,9 @@ export class Plane {
     this.velX = 4.0; // Vitesse d'approche stable
     this.velY = 0;
     this.pitch = 0; // À plat
-    this.thrust = 0.25; // Moteur au ralenti pour maintenir la vitesse contre la résistance
+    this.thrust = 0.55; // Poussée nécessaire pour maintenir la vitesse d'approche avec la traînée
+    this.flaps = 1; // Volets sortis au niveau 1 pour l'approche
+    this.gearDown = true;
     this.landed = false;
     this.crashed = false;
 
@@ -64,6 +71,7 @@ export class Plane {
     this.velY = 0;
   }
 
+  // Applique une rotation de pitch progressive pour éviter les changements brusques d'attitude.
   applyPitch(direction) {
     if (direction === "up") {
       this.pitch -= PITCH_CHANGE_RATE;
@@ -74,11 +82,23 @@ export class Plane {
     this.pitch = Math.max(-Math.PI / 4, Math.min(this.pitch, Math.PI / 4));
   }
 
+  // Applique une poussée progressive pour éviter les changements brusques de vitesse.
   applyThrust(direction) {
     if (direction === "increase") {
       this.thrust = Math.min(1.0, this.thrust + THRUST_CHANGE_RATE);
     } else if (direction === "decrease") {
       this.thrust = Math.max(0.0, this.thrust - THRUST_CHANGE_RATE);
+    }
+  }
+
+  cycleFlaps() {
+    this.flaps = (this.flaps + 1) % 3; // Cycle : 0 -> 1 -> 2 -> 0
+  }
+
+  toggleGear() {
+    // On ne peut pas rentrer le train au sol
+    if (this.y < GROUND_LEVEL - this.height) {
+      this.gearDown = !this.gearDown;
     }
   }
 
@@ -100,8 +120,10 @@ export class Plane {
 
     // Physique
     // 1. Résistance de l'air (Drag) : Combinaison de la résistance de base et de la résistance induite par l'angle.
+    const gearDrag = this.gearDown ? GEAR_DRAG : 0;
+    const flapsDrag = this.flaps * FLAPS_DRAG;
     const inducedDrag = Math.abs(this.pitch) * INDUCED_DRAG_FACTOR;
-    this.velX *= 1 - (AIR_RESISTANCE + inducedDrag);
+    this.velX *= 1 - (AIR_RESISTANCE + inducedDrag + flapsDrag + gearDrag);
     this.velY *= 1 - AIR_RESISTANCE;
 
     // 2. Moteur (Thrust)
@@ -113,7 +135,9 @@ export class Plane {
 
     // 4. Portance (Lift) : Générée par la vitesse sur les ailes, et modifiée par l'angle de l'avion.
     // Un pitch négatif (nez en l'air) augmente la portance.
-    const lift = this.velX * (LIFT_FACTOR - this.pitch * PITCH_LIFT_FACTOR);
+    const flapsLift = this.flaps * FLAPS_LIFT;
+    const lift =
+      this.velX * (LIFT_FACTOR - this.pitch * PITCH_LIFT_FACTOR + flapsLift);
     this.velY -= lift;
 
     this.worldX += this.velX;
@@ -131,18 +155,6 @@ export class Plane {
       }
     }
 
-    // Condition de crash au décollage (fin de piste)
-    if (
-      this.worldX > RUNWAY_END_X &&
-      this.y >= GROUND_LEVEL - this.height / 2
-    ) {
-      this.crashed = true;
-      this.justCrashed = true;
-      this.landingQuality = "CRASH";
-      this.stop();
-      return;
-    }
-
     // Collision avec le sol
     if (this.y + this.height / 2 >= GROUND_LEVEL) {
       this.y = GROUND_LEVEL - this.height / 2;
@@ -156,6 +168,15 @@ export class Plane {
           this.worldX > RUNWAY_START_X && this.worldX < RUNWAY_END_X;
         const vSpeedAbs = Math.abs(impactSpeedY);
         const pitchAbs = Math.abs(this.pitch);
+
+        // Crash si on atterrit sans le train sorti
+        if (!this.gearDown) {
+          this.crashed = true;
+          this.justCrashed = true;
+          this.landingQuality = "CRASH";
+          this.stop();
+          return;
+        }
 
         // Conditions pour un atterrissage réussi
         if (
@@ -207,6 +228,22 @@ export class Plane {
     ctx.quadraticCurveTo(w / 4, h / 2, w / 2, 0);
     ctx.closePath();
     ctx.fill();
+    ctx.stroke();
+
+    // Train d'atterrissage
+    if (this.gearDown) {
+      ctx.fillStyle = "#566573";
+      ctx.strokeStyle = "#2C3E50";
+      ctx.lineWidth = 1;
+
+      // Roue arrière
+      ctx.fillRect(-w / 2 + 10, h / 2, 4, 8);
+      ctx.strokeRect(-w / 2 + 10, h / 2, 4, 8);
+
+      // Roue avant
+      ctx.fillRect(w / 2 - 15, h / 2, 4, 8);
+      ctx.strokeRect(w / 2 - 15, h / 2, 4, 8);
+    }
     ctx.stroke();
 
     // Ailes

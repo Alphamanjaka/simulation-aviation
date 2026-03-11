@@ -57,7 +57,7 @@ class Cloud {
 
 let clouds = [];
 
-export function initBackground(cloudCount = 10) {
+export function initBackground(cloudCount = 20) {
   clouds = Array.from({ length: cloudCount }, () => new Cloud());
 }
 

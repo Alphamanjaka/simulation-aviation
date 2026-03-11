@@ -5,6 +5,8 @@
  */
 
 let keys = {};
+let fPressed = false;
+let gPressed = false;
 
 document.addEventListener("keydown", (e) => {
   keys[e.key] = true;
@@ -32,5 +34,25 @@ export function handleControls(plane) {
   }
   if (keys["ArrowLeft"]) {
     plane.applyThrust("decrease");
+  }
+
+  // Gestion des volets (Touche F)
+  if (keys["f"] || keys["F"]) {
+    if (!fPressed) {
+      plane.cycleFlaps();
+      fPressed = true;
+    }
+  } else {
+    fPressed = false;
+  }
+
+  // Gestion du train d'atterrissage (Touche G)
+  if (keys["g"] || keys["G"]) {
+    if (!gPressed) {
+      plane.toggleGear();
+      gPressed = true;
+    }
+  } else {
+    gPressed = false;
   }
 }

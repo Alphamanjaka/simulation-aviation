@@ -13,6 +13,9 @@ import {
   vSpeedArrowElem,
   horizonElem,
   gameMessageElem,
+  thrustLevelElem,
+  flapsValueElem,
+  gearValueElem,
 } from "./context.js";
 import { GROUND_LEVEL } from "./config.js";
 
@@ -51,6 +54,25 @@ export function updateInstruments(plane) {
 
   const pitchDegrees = (plane.pitch * 180) / Math.PI;
   horizonElem.style.transform = `translateY(${pitchDegrees * -1}%)`;
+
+  // Update thrust gauge
+  if (thrustLevelElem) {
+    thrustLevelElem.style.height = `${plane.thrust * 100}%`;
+  }
+
+  // Update flaps display
+  flapsValueElem.textContent = `${plane.flaps * 15}°`;
+
+  // Update gear display
+  if (gearValueElem) {
+    if (plane.gearDown) {
+      gearValueElem.textContent = "SORTI";
+      gearValueElem.style.color = "#2ECC71"; // Green
+    } else {
+      gearValueElem.textContent = "RENTRÉ";
+      gearValueElem.style.color = "#E74C3C"; // Red
+    }
+  }
 }
 
 export function resetUI() {
@@ -58,4 +80,7 @@ export function resetUI() {
   vSpeedArrowElem.style.display = "none";
   hideMessages();
   horizonElem.style.transform = `translateY(0%)`;
+  if (thrustLevelElem) {
+    thrustLevelElem.style.height = "0%";
+  }
 }

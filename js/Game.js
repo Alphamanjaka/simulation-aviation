@@ -21,10 +21,12 @@ import * as ui from "./ui.js";
 
 export class Game {
   constructor() {
+    console.log("Initializing game...");
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
+    // Mettre à jour les dimensions du jeu après avoir défini la taille du canvas
     setGameDimensions(canvas.width, canvas.height);
-
+    console.log(`Game dimensions set to ${GAME_WIDTH}x${GAME_HEIGHT}`);
     this.plane = new Plane();
     this.cameraX = 0;
     this.gameState = "PLAYING";
@@ -45,20 +47,38 @@ export class Game {
 
   // Méthode à surcharger pour la logique spécifique (autopilote, etc.)
   updateLogic() {
-    handleControls(this.plane);
+    this.handleScenarioControls();
     updatePlane(this.plane);
     audioManager.updateEngine(this.plane.thrust);
     updateBackground(this.plane.velX);
 
-    if (this.plane.justLanded || this.plane.justCrashed) {
+    this.checkGameRules();
+
+    // Si l'avion vient de toucher le sol, on joue le son mais on continue la simulation pour le freinage.
+    if (this.plane.justLanded) {
+      audioManager.playOnce("landing");
+    }
+
+    // La partie se termine si l'avion s'est crashé, OU s'il a atterri ET que sa vitesse est nulle.
+    if (
+      this.plane.justCrashed ||
+      (this.plane.landed && this.plane.velX === 0)
+    ) {
       this.gameState = "GAME_OVER";
       audioManager.stopEngine();
-      if (this.plane.justLanded) {
-        audioManager.playOnce("landing");
-      } else {
+      // Si c'est un crash, on joue le son correspondant.
+      if (this.plane.justCrashed) {
         audioManager.playOnce("crash");
       }
     }
+  }
+
+  handleScenarioControls() {
+    handleControls(this.plane);
+  }
+
+  checkGameRules() {
+    // This method is intended to be overridden by subclasses.
   }
 
   run() {

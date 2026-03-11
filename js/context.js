@@ -18,3 +18,6 @@ export const horizonElem = document
   .querySelector(".horizon");
 export const gameMessageElem = document.getElementById("gameMessage");
 export const restartButton = document.getElementById("restartButton");
+export const thrustLevelElem = document.getElementById("thrustLevel");
+export const flapsValueElem = document.getElementById("flapsValue");
+export const gearValueElem = document.getElementById("gearValue");
