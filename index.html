@@ -11,6 +11,34 @@
 <body>
     <div id="main-menu">
         <h1>Choisissez votre simulation</h1>
+        
+        <div class="settings-panel">
+            <div class="setting-group">
+                <label for="aircraft-select">Avion :</label>
+                <select id="aircraft-select">
+                    <option value="cessna">Cessna 172 (Léger)</option>
+                    <option value="jet">F-18 Hornet (Rapide)</option>
+                    <option value="jumbo">Airbus A380 (Lourd)</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label for="runway-select">Piste :</label>
+                <select id="runway-select">
+                    <option value="standard">Standard</option>
+                    <option value="short">Courte (Difficile)</option>
+                    <option value="long">Longue (Facile)</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label for="weather-select">Météo :</label>
+                <select id="weather-select">
+                    <option value="clear">Ciel Dégagé</option>
+                    <option value="windy">Vent de Face</option>
+                    <option value="storm">Orage (Turbulences)</option>
+                </select>
+            </div>
+        </div>
+
         <div class="menu-cards">
             <div class="menu-card" id="start-takeoff">
                 <h2>Décollage</h2>
@@ -20,6 +48,38 @@
                 <h2>Atterrissage</h2>
                 <p>Prenez les commandes après le pilote automatique et atterrissez en toute sécurité.</p>
             </div>
+        </div>
+        <button id="info-button" class="info-btn">Comment Jouer ?</button>
+    </div>
+
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Objectifs et Contrôles</h2>
+            <h3>Objectif du Jeu</h3>
+            <p>Le but est de réaliser un décollage ou un atterrissage "Parfait". La qualité de votre manœuvre est évaluée à la fin de chaque scénario.</p>
+            
+            <h3>Contrôles de Base</h3>
+            <ul>
+                <li><strong>Flèches Haut/Bas :</strong> Contrôlent le <strong>Pitch</strong> (l'angle de l'avion). Levez le nez pour monter, baissez-le pour descendre.</li>
+                <li><strong>Flèches Gauche/Droite :</strong> Contrôlent la <strong>Poussée</strong> du moteur. Augmentez la puissance pour accélérer, réduisez-la pour ralentir.</li>
+            </ul>
+
+            <h3>Systèmes Avancés</h3>
+            <ul>
+                <li><strong>Touche F :</strong> Gère les <strong>Volets (Flaps)</strong>. Les volets augmentent la portance et la traînée, ce qui est crucial pour voler à basse vitesse.
+                    <ul>
+                        <li><em>Décollage :</em> Un cran de volets (15°) aide à décoller plus tôt.</li>
+                        <li><em>Atterrissage :</em> Sortez les volets pour approcher la piste lentement et de manière stable.</li>
+                    </ul>
+                </li>
+                <li><strong>Touche G :</strong> Gère le <strong>Train d'atterrissage</strong>.
+                    <ul>
+                        <li>Rentrez le train après le décollage pour réduire la traînée et gagner de la vitesse.</li>
+                        <li><strong>N'oubliez jamais de le sortir avant d'atterrir, sinon c'est le crash assuré !</strong></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 

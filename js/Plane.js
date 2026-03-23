@@ -9,6 +9,8 @@ import {
   GRAVITY,
   BRAKING_FORCE,
   AIR_RESISTANCE,
+  WIND_X,
+  WIND_Y,
   INDUCED_DRAG_FACTOR,
   PITCH_CHANGE_RATE,
   THRUST_CHANGE_RATE,
@@ -149,8 +151,12 @@ export class Plane {
 
     // 3. Gravité : Tire l'avion vers le bas.
     this.velY += GRAVITY;
+    
+    // 4. Vent (Météo)
+    this.velX += WIND_X;
+    this.velY += WIND_Y;
 
-    // 4. Portance (Lift) : Générée par la vitesse sur les ailes, et modifiée par l'angle de l'avion.
+    // 5. Portance (Lift) : Générée par la vitesse sur les ailes, et modifiée par l'angle de l'avion.
     // Un pitch négatif (nez en l'air) augmente la portance.
     const flapsLift = this.flaps * FLAPS_LIFT;
     const lift =
