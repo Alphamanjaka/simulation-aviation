@@ -1,6 +1,6 @@
 # Flight Sim Pro
 
-Flight Sim Pro est un simulateur de vol en 2D développé en JavaScript pur, HTML et CSS. Il propose deux scénarios distincts : le décollage et l'atterrissage, avec un modèle physique simplifié mais réaliste et un tableau de bord interactif.
+Flight Sim Pro est un simulateur de vol en 2D haute fidélité développé en **JavaScript pur (Vanilla JS)**, HTML5 Canvas et CSS3. Conçu sans moteur de jeu tiers, il démontre une simulation physique vectorielle réaliste et une architecture logicielle modulaire robuste. Il propose deux scénarios distincts : le décollage et l'atterrissage.
 
 ## Fonctionnalités
 
